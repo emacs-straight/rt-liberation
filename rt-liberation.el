@@ -5,7 +5,7 @@
 ;; Author: Yoni Rabkin <yrk@gnu.org>
 ;; Authors: Aaron S. Hawley <aaron.s.hawley@gmail.com>, John Sullivan <johnsu01@wjsullivan.net>
 ;; Maintainer: Yoni Rabkin <yrk@gnu.org>
-;; Version: 2.4rc
+;; Version: 2.4
 ;; Keywords: rt, tickets
 ;; Package-Type: multi
 ;; url: http://www.nongnu.org/rtliber/
@@ -1158,6 +1158,18 @@ ASSOC-BROWSER if non-nil should be a ticket browser."
       (rt-liber-viewer2-display-ticket-history rt-liber-ticket-local
 					       rt-liber-assoc-browser)
     (error "not viewing a ticket")))
+
+(defun rt-liber-viewer2-move-point-to-section (history-id)
+  "Move point to the beginning of section with HISTORY-ID."
+  (let ((current-history-id (alist-get 'id (rt-liber-viewer2-get-section-data)))
+	(previous-history-id nil))
+    (while (not (or (string-equal history-id current-history-id)
+		    (eq current-history-id previous-history-id)))
+      (setq previous-history-id current-history-id)
+      (rt-liber-viewer2-next-section-in)
+      (setq current-history-id (alist-get 'id (rt-liber-viewer2-get-section-data))))
+    (when (not (string-equal history-id current-history-id))
+      (error "Cannot find section."))))
 
 (defun rt-liber-viewer2-next-section-in ()
   (interactive)
