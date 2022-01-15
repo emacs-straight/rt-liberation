@@ -5,7 +5,7 @@
 ;; Author: Yoni Rabkin <yrk@gnu.org>
 ;; Authors: Aaron S. Hawley <aaron.s.hawley@gmail.com>, John Sullivan <johnsu01@wjsullivan.net>
 ;; Maintainer: Yoni Rabkin <yrk@gnu.org>
-;; Version: 3
+;; Version: 4
 ;; Keywords: rt, tickets
 ;; Package-Type: multi
 ;; url: http://www.nongnu.org/rtliber/
@@ -1052,6 +1052,7 @@ ASSOC-BROWSER if non-nil should be a ticket browser."
 
 (defun rt-liber-viewer-last-communicate-in ()
   (interactive)
+  (revert-buffer)
   (goto-char (point-max))
   (let ((last (re-search-backward
 	       rt-liber-viewer-communicate-regexp
